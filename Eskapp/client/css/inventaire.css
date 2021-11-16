@@ -1,0 +1,110 @@
+#account {text-align: center;font-weight: bold;}
+#totalpoids {text-align: center;font-weight: bold;}
+.element {
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  padding: 0;
+  line-height: 50px;
+
+  font-size: 15pt;
+  font-weight: bold;
+
+  border-radius: 5px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.expanded {
+  height: auto;
+}
+
+.expanded .degat, .expanded .poids {display: none;}
+.expanded .nom {
+  overflow: visible;
+}
+
+.expanded .expand img {
+  transform: rotate(180deg);
+}
+
+.element:first-of-type {
+  border-top: 1px solid gray;
+}
+
+.expand {
+  width: 10vw;
+  display: inline-block;
+  margin-left: 0px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.expand img {
+  width: 20px;
+  margin-top: -5px;
+  vertical-align: middle;
+}
+
+.nom {
+  width: 26vw;
+  display: inline-block;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.degat {
+  width: 23vw;
+  display: inline-block;
+
+  text-align: left;
+  box-sizing: border-box;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.degat img {width: 20px;vertical-align: middle; margin-top: -5px;}
+
+.poids {
+  height: 50px;
+  width: 20vw;
+  display: inline-block;
+  text-align: right;
+  padding-right: 10px;
+  box-sizing: border-box;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.lore {
+  line-height: 20pt;
+  font-size: 13pt;
+  display: inline-block;
+}
+
+.lore p {
+  text-align: left;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 80vw;
+  box-sizing: border-box;
+}
+
+.lore hr {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30vw;
+}

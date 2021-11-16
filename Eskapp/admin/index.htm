@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+    <script src="js/joueurs.js" charset="utf-8"></script>
+    <script src="js/editeur.js" charset="utf-8"></script>
+    <script src="js/objets.js" charset="utf-8"></script>
+    <script src="js/magasins.js" charset="utf-8"></script>
+    <script src="js/aide_magasin.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="menu">
+    <h2>
+      <span id="selected" class="onglet_name" onclick="showOnglet('onglet_joueurs',this);">Preview Joueurs</span>
+       - <span class="onglet_name" onclick="showOnglet('onglet_editeur',this);">Editeur Manuel</span>
+       - <span class="onglet_name" onclick="showOnglet('onglet_objet',this);">Objet</span>
+       - <span class="onglet_name" onclick="showOnglet('onglet_magasin',this);">Magasin</span>
+       - <span class="onglet_name" onclick="showOnglet('onglet_wiki',this);">Wiki</span>
+       - <span class="onglet_name" onclick="showOnglet('onglet_generateur_magasin',this);">Generateur Shop</span>
+       <span id="version">Interface admin v1.0.3 beta - <a href="https://github.com/fullfox">&copy;fullfox</a></span>
+   </h2>
+  </div>
+  <div style="margin-bottom: 60px;"></div>
+    <span id="onglet_joueurs" class="onglet" style="display:inline;">
+      <center><button onclick="getAsync();previewJoueurs();" style="width:150px;height: 40px;">Force Refresh</button></center><br>
+      <span id="joueurs">
+
+      </span>
+    </span>
+
+
+
+    <span id="joueurs_panel">
+    <!--
+    <div id="inventaire_panel" class="joueur_panel">
+
+
+    </div>
+    -->
+
+    </span>
+
+
+
+    <span id="onglet_editeur" class="onglet">
+    <input type=submit value="Recharger les joueurs" style="width: auto;" onclick="refresh();"></input>
+    <div id=panel>
+
+    </div>
+    <span id="input"></span>
+  </span>
+
+
+
+
+
+
+  <span id="onglet_objet" class="onglet">
+    <div id=give>
+      Charger objet:
+      <select id="objet.liste">
+      </select>
+      <input type=submit value="Load" onclick="loadObjetFromBDD()"></input> <input type=submit value="Save" onclick="saveObjet()"></input> <input type=submit value="Delete" onclick="deleteObjetFromBDD()"></input>
+      <br><br>
+      <label>Nom: <input type=text id="objet.nom" ></input></label>
+      <label>Dégat: <input type=text id="objet.degat"></input></label>
+      <label>Poids: <input type=number id="objet.poids"></input></label>
+      <label>Type: <select id="objet.type">
+
+      </select></label>
+      <br>
+
+      <label>Lore:<br>
+      <textarea id="objet.lore"></textarea></label>
+
+      <br>
+      <label>Bonus: <span onclick="displayBonus(this)" style="cursor: pointer;">(voir)</span><br>
+      <div id="objet.bonus" style="font-size: 10pt;display:none;"></div></label>
+      <br>
+      Donner à
+      <select id="objet.joueur">
+
+      </select>
+      <input type=submit value="Envoyer" onclick="sendObjet()"></input>
+    </div>
+  </span>
+
+
+
+
+
+  <span id="onglet_magasin" class="onglet">
+    <input type=submit value="Générer" onclick="generateShop()"></input>
+    <select id="magasin">
+      <option>Armurier</option>
+      <option>Potion</option>
+    </select>
+    <input type="number" value="5" id="magasin.nb" class="shortInput"></input>
+    <input type=submit value="Envoyer" onclick="saveCurrentShop()"></input>
+    <br>
+    <span id="magasin.preview">
+
+    </span>
+
+    <h2>Magasin courant</h2>
+      <span id="magasinCourant.preview"></span><br>
+      <input type=submit value="Stop" onclick="stopShop()"></input>
+    <br>
+  </span>
+
+
+
+
+  <span id="onglet_wiki" class="onglet">
+    Donner
+    <select id="wiki.liste">
+
+    </select>
+     à
+    <select id="wiki.joueur">
+
+    </select>
+    <input type=submit value="Envoyer" onclick="giveWiki();"></input>
+    <br>
+    <br>
+    <button onclick="loadWiki()">Refresh</button>
+    <span id="joueurs_wiki">
+
+
+
+
+    </span>
+
+  </span>
+
+
+
+
+  <span id="onglet_generateur_magasin" class="onglet">
+    <label>Magasins: <select id="aide.magasins.liste" onchange="loadShop();"></select></label>
+    <button onclick="addShop()">Add</button>
+    <button onclick="delShop()">Del</button>
+    <br><br>
+    Items en vente:<br>
+    <span id="item_vente"></span>
+
+
+    <hr>
+    Charger objet:
+    <select id="aide.objet.liste">
+    </select>
+    <input type=submit value="Load" onclick="loadObjetFromBDDAide()"></input>
+    <br><br>
+    <label>Nom: <input type=text id="aide.objet.nom" ></input></label>
+    <label>Dégat: <input type=text id="aide.objet.degat"></input></label>
+    <label>Poids: <input type=number id="aide.objet.poids"></input></label>
+    <br>
+    <label>Type: <select id="aide.objet.type"></select></label>
+    <label>Cout: <input type=number id="aide.objet.cout"></input></label>
+    <label>Rareté: <input type=number id="aide.objet.weight"></input></label>
+
+
+    <br>
+
+    <label>Lore:<br>
+    <textarea id="aide.objet.lore"></textarea></label>
+
+    <br>
+    <label>Bonus: <span onclick="displayBonusAide(this)" style="cursor: pointer;">(voir)</span><br>
+    <div id="aide.objet.bonus" style="font-size: 10pt;display:none;"></div></label>
+    <br>
+
+
+    <input type=submit value="Ajouter" onclick="sendObjetAide()"></input> à <b id="currentShop">rien</b>
+
+
+
+
+
+  </span>
+
+
+  </body>
+</html>

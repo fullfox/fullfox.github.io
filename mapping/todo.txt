@@ -1,0 +1,5 @@
+selectionner -> bouger element custom
+
+2 layer custom
+
+liste des tiles posées + suppression

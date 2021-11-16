@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/magasin.css">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
+    <meta charset="utf-8">
+    <script src="js/menu.js" charset="utf-8"></script>
+    <script src="js/misc.js" charset="utf-8"></script>
+    <title>Eskapp</title>
+  </head>
+  <body onload=" setTimeout( function(){ window.scrollTo(0, 1) }, 0); ">
+    <div id=menuDyn onclick="menu();">
+      <a href="personnage.html"><span>Personnage</span></a>
+      <a href="statistiques.html#Etat"><span>État du personnage</span></a>
+      <a href="statistiques.html#Caracteristiques"><span>Caracteristiques</span></a>
+      <a href="statistiques.html#Competences"><span>Compétences</span></a>
+      <a href="inventaire.html"><span>Inventaire</span></a>
+      <a href="magasin.html"><span>Magasin</span></a>
+      <a href="wiki.html"><span>Wiki</span></a>
+      <a href="map.html"><span>Map</span></a>
+      <a href="index.html"><span>Déconnexion</span></a>
+    </div>
+    <div id=menu>
+      <img src="img/menu.png" onclick="menu();"><h1>Magasin</h1>
+    </div>
+    <div id=blank></div>
+    <p id="account"></p>
+    <div id="magasin">
+
+
+
+    </div>
+
+    <script src="js/magasin.js" charset="utf-8"></script>
+  </body>
+</html>

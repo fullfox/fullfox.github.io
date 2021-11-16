@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+      html, body {margin: 0;padding: 0; overflow: hidden; background: grey;}
+      canvas {background: #fefefe;}
+      #control {position: absolute;}
+      #control h2, span {background: white;}
+
+      #header_panel {height: 10vh;}
+      #panel {
+        position: absolute;
+        right: 0;
+        /*width: 0px;*/
+        min-width: 200px;
+        padding-left: 20px;
+        height: 100vh;
+        background: #ffffff90;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        overflow: hidden;
+        transition: all 0.5s;
+        padding-left: 10px;
+      }
+      #panel:hover {min-width: 200px;}
+      #panel #assets {overflow-y: scroll;  height: 90vh;}
+      #assets img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .asset {cursor: pointer;}
+      .asset:hover {background: #b2bec3;}
+      .selected_asset, .selected_asset:hover {background: #636e7290;}
+
+      .expand {background: #b2bec3; height: 20px;border-radius: 5px;padding-left: 5px;padding-right: 5px;cursor: pointer;}
+      .expand:hover {background: #a29bfe;}
+      .folderContent {display: none;}
+
+      ul, li {
+        margin-left: 0;
+        padding-left: 6px;
+      }
+
+
+      #loading {position:absolute;z-index:2;width: 100%; transition: all 1s;}
+    </style>
+    <script src="assets.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/graphic.js"></script>
+    <script src="js/chemin.js"></script>
+    <script src="js/rock.js"></script>
+    <script src="js/forest.js"></script>
+    <script src="js/etang.js"></script>
+    <script src="js/river.js"></script>
+    <script src="js/custom.js"></script>
+  </head>
+  <body>
+    <img src="img/loading.png" id="loading">
+    <div id="control">
+      <span>FPS <span id="fps"></span>ms</span><br>
+      <button onclick="mode='river';">River</button>
+      <button onclick="mode='cheminTerre';">Chemin terre</button>
+      <button onclick="mode='cheminPierre';">Chemin pierre</button>
+      <button onclick="mode='rock';">Rocks</button>
+      <button onclick="mode='foret';">Foret</button>
+      <span>q:</span><input type=range min="100" max="500" step="10" id="quantity">
+      <button onclick="mode='custom';">Custom</button>
+      <button onclick="mode='none';">None</button>
+      Grille: <input type="checkbox" id="quadrillage">
+      Magnet: <input type="checkbox" id="magnet">
+    </div>
+    <div id="panel">
+      <div id="header_panel">
+        Assets:
+        <br><br>
+        <button>Add Asset</button>
+      </div>
+      <div id="assets">
+      </div>
+    </div>
+
+
+
+    <canvas id="canvas"></canvas>
+
+
+
+    <script>
+      document.body.onload = main;
+    </script>
+    <script src="js/control.js"></script>
+  </body>
+</html>

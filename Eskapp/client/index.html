@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/personnage.css">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
+    <meta charset="utf-8">
+    <script src="js/menu.js" charset="utf-8"></script>
+    <script src="js/index.js" charset="utf-8"></script>
+    <style>
+      #menu h1 {margin-left: 0px;}
+      #submit {background: #6c5ce7; border: 2px solid #4f43a7;}
+    </style>
+    <title>Eskapp</title>
+  </head>
+  <body onload=" setTimeout( function(){ window.scrollTo(0, 1) }, 0); ">
+
+    <div id=menu><h1>Connexion</h1></div>
+    <div id=blank></div>
+
+    <label>Nom du joueur<br><input type="text" id="joueur"></label>
+    <input type="submit" value="Connexion" id="submit" onclick="connect()"></input>
+
+  </body>
+</html>
