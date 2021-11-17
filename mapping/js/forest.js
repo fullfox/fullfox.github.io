@@ -23,14 +23,14 @@ function foret(A,q){
 
     if(!overlap){
       let n = Math.floor(Math.random()*2);
-      map.forests[nForest].push({
+      map.forests[nForest].push(new Sprite({
         'x':x,
         'y':y,
         'sx':treeSize,
         'sy':treeSize,
         'angle':2*Math.PI*Math.random(),
         'texture':'Tree'+n
-      });
+      }));
     }
   }
 }

@@ -44,14 +44,14 @@ function chemin(n,A,B,enableBridge){
 
       inertie = arctan(moySin,moyCos);
 
-      map.ponts[nChemin].push({
+      map.ponts[nChemin].push(new Sprite({
         'x':x-Math.cos(inertie)*pontSize/2,
         'y':y-Math.sin(inertie)*pontSize/2,
         'sx':pontSize,
         'sy':pontSize,
         'angle':inertie,
         'texture':'pont'+n
-      });
+      }));
 
     } else {
       //pas pont
@@ -67,14 +67,14 @@ function chemin(n,A,B,enableBridge){
 
       inertie = arctan(moySin,moyCos);
 
-      map.chemins[nChemin].push({
+      map.chemins[nChemin].push(new Sprite({
         'x':x,
         'y':y,
         'sx':cheminSize,
         'sy':cheminSize,
         'angle': 2*Math.PI*Math.random(),
         'texture':'chemin'+n
-      });
+      }));
     }
   }
 }

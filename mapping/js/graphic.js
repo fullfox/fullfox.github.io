@@ -59,7 +59,7 @@ function drawFrame(){
   frame++;
 }
 
-
+//Chope recursivement tt les objets
 function getAllObjects(obj){
   var arr = [];
   if(typeof(obj.x) == "undefined"){
@@ -78,14 +78,7 @@ function getAllObjects(obj){
 function generateStack(){
   stack = [];
   for (var elem of getAllObjects(orderedMap())) {
-    stack.push({
-      'x': elem.x,
-      'y': elem.y,
-      'sx': elem.sx,
-      'sy': elem.sy,
-      'angle': elem.angle,
-      'texture': getTexture(elem.texture)
-    })
+    stack.push(elem);
   }
 }
 
@@ -93,15 +86,7 @@ function generateStack(){
 
 function drawAllImages() {
   for (var image of stack) {
-    ctx.setTransform(1, 0, 0, 1, 0, 0); //ctx de base
-
-    ctx.translate(tx,ty);
-    ctx.scale(zoom, zoom);
-    ctx.translate(-cx,-cy);
-
-    ctx.translate(image.x, image.y);
-    ctx.rotate(image.angle);
-    ctx.drawImage(image.texture, -image.sx/2, -image.sy/2, image.sx, image.sy);
+    image.draw();
   }
 }
 

@@ -38,14 +38,14 @@ function main(){
   //etang();
   //river();
 
-  map.custom.push({
+  map.custom.push(new Sprite({
     'x':50,
     'y':50,
     'sx':50,
     'sy':50,
     'angle':0,
     'texture':'undefined'
-  });
+  }));
 
 
 

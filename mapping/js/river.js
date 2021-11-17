@@ -41,14 +41,14 @@ function river(A,B){
 
     inertie = arctan(moySin,moyCos);
 
-    map.rivers[nRiver].push({
+    map.rivers[nRiver].push(new Sprite({
       'x':x,
       'y':y,
       'sx':riverSize,
       'sy':riverSize,
       'angle':2*Math.PI*Math.random(),
       'texture':'river'
-    });
+    }));
   }
 }
 

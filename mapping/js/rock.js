@@ -12,14 +12,14 @@ function rock(A,radius){
 
     if(!overlap){
       let n = Math.floor(3*Math.random());
-      map.rocks.push({
+      map.rocks.push(new Sprite({
         'x':x,
         'y':y,
         'sx':rockSize,
         'sy':rockSize,
         'angle':2*Math.PI*Math.random(),
         'texture':'rock'+n
-      });
+      }));
     }
   }
 }
@@ -30,13 +30,13 @@ let grassSize = 600;
 function fond(n){
   for (var i = 0; i < n; i++) {
     for (var j = 0; j < n; j++) {
-      map.grass.push({
+      map.grass.push(new Sprite({
         'x':600*(i+0.5),
         'y':600*(j+0.5),
         'sx':grassSize,
         'sy':grassSize,
         'angle':0,'texture':'grass_seamless'
-      });
+      }));
     }
   }
 }

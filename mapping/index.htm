@@ -49,6 +49,8 @@
 
       #loading {position:absolute;z-index:2;width: 100%; transition: all 1s;}
     </style>
+
+    <!-- Import js -->
     <script src="assets.js"></script>
     <script src="js/main.js"></script>
     <script src="js/graphic.js"></script>
@@ -58,11 +60,13 @@
     <script src="js/etang.js"></script>
     <script src="js/river.js"></script>
     <script src="js/custom.js"></script>
+
+    <script src="js/classes/image.js"></script>
   </head>
   <body>
     <img src="img/loading.png" id="loading">
     <div id="control">
-      <span>FPS <span id="fps"></span>ms</span><br>
+      <span>tick <span id="fps"></span>ms</span><br>
       <button onclick="mode='river';">River</button>
       <button onclick="mode='cheminTerre';">Chemin terre</button>
       <button onclick="mode='cheminPierre';">Chemin pierre</button>
@@ -73,6 +77,7 @@
       <button onclick="mode='none';">None</button>
       Grille: <input type="checkbox" id="quadrillage">
       Magnet: <input type="checkbox" id="magnet">
+      (zqsd to move the camera, wxc pour rotate, scale and move an object)
     </div>
     <div id="panel">
       <div id="header_panel">

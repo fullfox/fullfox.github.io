@@ -38,14 +38,14 @@ function customMove(){
   }
 
   let img = getTexture(custom.texture);
-  map.temp[0] = {
+  map.temp[0] = new Sprite({
     'x':custom.x,
     'y':custom.y,
     'sx':img.naturalWidth*custom.scale/8,
     'sy':img.naturalHeight*custom.scale/8,
     'angle':custom.angle,
     'texture':custom.texture
-  };
+  });
 }
 
 function customClick(){
