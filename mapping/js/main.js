@@ -3,10 +3,21 @@ let canvas;
 let stack = [];
 let timeToDraw = 0;
 let mapOrder = ["grass","rivers","chemins","ponts","rocks","forests","custom","temp"];
-let map = [];
+let map = new Folder("map");
+
+//Ordre:
+grass = map.subFolder("grass");
+rivers = map.subFolder("rivers");
+chemins = map.subFolder("chemins");
+ponts = map.subFolder("ponts");
+customs = map.subFolder("custom");
+rocks = map.subFolder("rocks");
+forests = map.subFolder("forests");
+temp = []; //Temporaire aka truc en cours de dessinage
+
 let textures = [];
 
-map.custom = [];
+map.subFolder("custom");
 
 let assets = JSON.parse(assets_json);
 let assetsArray = [];
@@ -38,7 +49,7 @@ function main(){
   //etang();
   //river();
 
-  map.custom.push(new Sprite({
+  customs.push(new Sprite({
     'x':50,
     'y':50,
     'sx':50,

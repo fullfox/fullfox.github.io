@@ -1,4 +1,3 @@
-map.rocks = [];
 let rockSize = 50;
 function rock(A,radius){
   for (var i = 0; i < radius**2/10000; i++) {
@@ -12,7 +11,7 @@ function rock(A,radius){
 
     if(!overlap){
       let n = Math.floor(3*Math.random());
-      map.rocks.push(new Sprite({
+      rocks.push(new Sprite({
         'x':x,
         'y':y,
         'sx':rockSize,
@@ -25,12 +24,11 @@ function rock(A,radius){
 }
 
 
-map.grass = [];
 let grassSize = 600;
 function fond(n){
   for (var i = 0; i < n; i++) {
     for (var j = 0; j < n; j++) {
-      map.grass.push(new Sprite({
+      grass.push(new Sprite({
         'x':600*(i+0.5),
         'y':600*(j+0.5),
         'sx':grassSize,

@@ -1,5 +1,4 @@
-map.chemins = [];
-map.ponts = [];
+//Generation des chemins
 
 let cheminSize=80;
 let pontSize=60;
@@ -14,9 +13,9 @@ function chemin(n,A,B,enableBridge){
   let taillePont = 60;
 
  //ALGO
-  let nChemin = map.chemins.length;
-  map.chemins[nChemin] = [];
-  map.ponts[nChemin] = [];
+  let nChemin = chemins.countFolders();
+  cheminCourant = chemins.subFolder(nChemin);
+  pontCourant = ponts.subFolder(nChemin);
 
   let x = A.x;
   let y = A.y;
@@ -44,7 +43,7 @@ function chemin(n,A,B,enableBridge){
 
       inertie = arctan(moySin,moyCos);
 
-      map.ponts[nChemin].push(new Sprite({
+      pontCourant.push(new Sprite({
         'x':x-Math.cos(inertie)*pontSize/2,
         'y':y-Math.sin(inertie)*pontSize/2,
         'sx':pontSize,
@@ -67,7 +66,7 @@ function chemin(n,A,B,enableBridge){
 
       inertie = arctan(moySin,moyCos);
 
-      map.chemins[nChemin].push(new Sprite({
+      cheminCourant.push(new Sprite({
         'x':x,
         'y':y,
         'sx':cheminSize,
@@ -112,8 +111,8 @@ function cheminTerre(A,B){
 
 function overlapChemin(x,y,r){
   r ??= 0;
-  for (let chemin of map.chemins) {
-    for (var point of chemin) {
+  for (let chemin of chemins.getFolders()) {
+    for (let point of chemin.getFiles()) {
       let distance = Math.sqrt( (point.x - x)**2 + (point.y - y)**2 );
       if(distance<40+r){
         return true;

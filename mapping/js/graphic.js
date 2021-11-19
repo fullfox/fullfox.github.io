@@ -43,10 +43,6 @@ function drawInterface(){
 
 }
 
-
-
-
-
 let frame = 0;
 function drawFrame(){
   let t1 = window.performance.now();
@@ -59,30 +55,13 @@ function drawFrame(){
   frame++;
 }
 
-//Chope recursivement tt les objets
-function getAllObjects(obj){
-  var arr = [];
-  if(typeof(obj.x) == "undefined"){
-    //contient des obj
-    for (var key of Object.keys(obj)) {
-      arr = arr.concat(getAllObjects(obj[key]));
-    }
-  } else {
-    //objet
-    arr.push(obj);
-  }
-  return arr;
-}
-
-
 function generateStack(){
   stack = [];
-  for (var elem of getAllObjects(orderedMap())) {
+  for (var elem of map.collapse()) {
     stack.push(elem);
   }
+  stack = stack.concat(temp);
 }
-
-
 
 function drawAllImages() {
   for (var image of stack) {

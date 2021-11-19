@@ -1,10 +1,7 @@
 let custom = {'x':0,'y':0,'scale':1,'angle':0};
 
-map.custom = [];
-map.temp = [];
-
-
 function customMove(){
+  console.trace()
   let magnet = document.getElementById('magnet').checked;
   switch (customMode) {
     case 'position':
@@ -38,7 +35,7 @@ function customMove(){
   }
 
   let img = getTexture(custom.texture);
-  map.temp[0] = new Sprite({
+  temp[0] = new Sprite({
     'x':custom.x,
     'y':custom.y,
     'sx':img.naturalWidth*custom.scale/8,
@@ -49,7 +46,7 @@ function customMove(){
 }
 
 function customClick(){
-  map.custom.push(map.temp[0]);
+  customs.push(temp[0]);
 }
 
 

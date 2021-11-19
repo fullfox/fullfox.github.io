@@ -1,4 +1,3 @@
-map.rivers = [];
 let riverSize = 200;
 let riverPas = 15;
 //A vers B
@@ -13,8 +12,8 @@ function river(A,B){
     'y':canvas.height
   };
 
-  let nRiver = map.rivers.length;
-  map.rivers[nRiver] = [];
+  let nRiver = rivers.countFolders();
+  riverCourante = rivers.subFolder(nRiver);
 
   let x = A.x;
   let y = A.y;
@@ -41,7 +40,7 @@ function river(A,B){
 
     inertie = arctan(moySin,moyCos);
 
-    map.rivers[nRiver].push(new Sprite({
+    riverCourante.push(new Sprite({
       'x':x,
       'y':y,
       'sx':riverSize,
@@ -54,8 +53,8 @@ function river(A,B){
 
 function overlapRiver(x,y,r){
   r ??= 0;
-  for (let river of map.rivers) {
-    for (let point of river) {
+  for (let river of rivers.getFolders()) {
+    for (let point of river.getFiles()) {
       let distance = Math.sqrt( (point.x - x)**2 + (point.y - y)**2 );
       if(distance<100+r){
         return true;
@@ -67,7 +66,8 @@ function overlapRiver(x,y,r){
 
 
 function riverFlow(){
-  for (let river of map.rivers) {
+  for (let river of rivers.getFolders()) {
+    river = river.getFiles();
     for (let id in river) {
       if(frame%8==0)
       river[river.length-id-1].angle = river[(2*river.length-id-2)%river.length].angle;

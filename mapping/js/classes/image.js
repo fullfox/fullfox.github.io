@@ -1,6 +1,6 @@
 class Sprite {
   constructor(obj) {
-    this.name = "";
+    this.name = obj.name ?? "";
     this.x = obj.x;
     this.y = obj.y;
     this.sx = obj.sx;
@@ -8,6 +8,8 @@ class Sprite {
     this.angle = obj.angle;;
     this.texture = obj.texture;
   }
+
+  isFolder(){return false;}
 
   get textureImage(){
     return getTexture(this.texture);
@@ -33,21 +35,76 @@ class Sprite {
 }
 
 class Folder {
-  constructor(){
-    this._ = {};
+  constructor(name){
+    this.name = name;
+    this._ = [];
   }
 
-  get isFolder() {
-    return true;
-  }
+  isFolder(){return true;}
 
   subFolder(name){
-    this[name] = new Folder();
+    let newFolder = new Folder(name);
+    this._.push(newFolder);
+    return newFolder;
+  }
+
+  push(sprite){
+    this._.push(sprite);
+  }
+
+  get length(){
+    return this._.length;
+  }
+
+  countFolders(){
+    let i = 0;
+    for (let elem of this._) {
+      if(elem.isFolder() == true){i++;}
+    }
+    return i;
+  }
+
+  countFiles(){
+    let i = 0;
+    for (let elem of this._) {
+      if(elem.isFolder() == false){i++;}
+    }
+    return i;
+  }
+
+  getFolders(){
+    let arr = [];
+    for (let elem of this._) {
+      if(elem.isFolder() == true){arr.push(elem);}
+    }
+    return arr;
+  }
+
+  getFiles(){
+    let arr = [];
+    for (let elem of this._) {
+      if(elem.isFolder() == false){arr.push(elem);}
+    }
+    return arr;
+  }
+
+  getContent(){
+    return this._;
+  }
+
+  f(folder){
+    return this._[folder];
   }
 
   collapse(){
-    for (let f in this) {
-      console.log(f);
+    let arr = [];
+    for (let elem of this._) {
+      if(elem.isFolder() == true){
+        arr = arr.concat(elem.collapse());
+      } else {
+        arr.push(elem);
+      }
     }
+    return arr;
   }
 }

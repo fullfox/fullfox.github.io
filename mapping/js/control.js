@@ -88,7 +88,6 @@ let nbClick = 0;
 let marker = false;
 
 document.getElementById('canvas').addEventListener("click", function(e){
-
   marker = false;
   lastClick = {'x':(e.clientX - tx)/zoom + cx,'y':(e.clientY - ty)/zoom + cy};
 
@@ -97,15 +96,11 @@ document.getElementById('canvas').addEventListener("click", function(e){
   } catch (e) {
 
   }
-
-
 });
 
 
 
-function noneMove(){
-  map.temp = [];
-}
-function noneClick() {
-  map.temp = [];
+function flushTemp(){
+  mode = 'none';
+  temp = [];
 }

@@ -1,5 +1,3 @@
-map.forests = [];
-
 let treeSize = 200;
 
 function foret(A,q){
@@ -8,8 +6,8 @@ function foret(A,q){
 
   let radius = q;
 
-  let nForest = map.forests.length;
-  map.forests[nForest] = [];
+  let nForest = forests.countFolders();
+  foretCourante = forests.subFolder(nForest);
 
   for (var i = 0; i < radius**2/5000; i++) {
     let x = 0;
@@ -23,7 +21,7 @@ function foret(A,q){
 
     if(!overlap){
       let n = Math.floor(Math.random()*2);
-      map.forests[nForest].push(new Sprite({
+      foretCourante.push(new Sprite({
         'x':x,
         'y':y,
         'sx':treeSize,
