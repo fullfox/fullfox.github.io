@@ -60,6 +60,7 @@ function generateStack(){
   for (var elem of map.collapse()) {
     stack.push(elem);
   }
+
   stack = stack.concat(temp);
 }
 

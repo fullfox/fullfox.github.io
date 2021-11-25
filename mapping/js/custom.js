@@ -1,7 +1,6 @@
 let custom = {'x':0,'y':0,'scale':1,'angle':0};
 
 function customMove(){
-  console.trace()
   let magnet = document.getElementById('magnet').checked;
   switch (customMode) {
     case 'position':
@@ -53,9 +52,9 @@ function customClick(){
 
 
 
-function buildPanel(){
+function buildCustomPanel(){
   document.getElementById('assets').innerHTML = '<ul>' + generateFolderHTML(assets) + '</ul>';
-
+  
   for (let elem of document.getElementsByClassName('expand')) {
     elem.addEventListener('click', (e) =>{
       if(!e.target.nextSibling.offsetParent){
@@ -85,7 +84,9 @@ function generateFolderHTML(obj,path=""){
 
 
 function selectAsset(elem){
-  mode='custom';
+  onClick = customClick;
+  onMove = customMove;
+
   for (let asset of document.getElementsByClassName('selected_asset')) {
     asset.classList.remove('selected_asset');
   }

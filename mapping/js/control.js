@@ -53,20 +53,6 @@ if(key.left){tx+=vitesse;}
 if(key.right){tx-=vitesse;}
 }
 
-let mouse = {'x':0,'y':0};
-document.addEventListener("mousemove", function(e){
-  mouse.x = (e.clientX - tx)/zoom + cx;
-  mouse.y = (e.clientY - ty)/zoom + cy;
-
-
-  try {
-      window[mode+"Move"]();
-  } catch (e) {
-
-  }
-
-});
-
 
 document.getElementById('canvas').addEventListener("wheel", function(e){
   let dcx = (e.clientX - tx)/zoom;
@@ -92,15 +78,28 @@ document.getElementById('canvas').addEventListener("click", function(e){
   lastClick = {'x':(e.clientX - tx)/zoom + cx,'y':(e.clientY - ty)/zoom + cy};
 
   try {
-      window[mode+"Click"]();
+      onClick();
   } catch (e) {
 
   }
 });
 
+let mouse = {'x':0,'y':0};
+document.addEventListener("mousemove", function(e){
+  mouse.x = (e.clientX - tx)/zoom + cx;
+  mouse.y = (e.clientY - ty)/zoom + cy;
 
 
-function flushTemp(){
-  mode = 'none';
+  try {
+    onMove();
+  } catch (e) {
+
+  }
+
+});
+
+function resetControl(){
+  onMove = undefined;
+  onClick = undefined;
   temp = [];
 }

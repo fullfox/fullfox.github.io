@@ -43,7 +43,8 @@ function main(){
   ty = canvas.height/2;
 
   buildAssetsArray(assets);
-  buildPanel();
+  buildCustomPanel();
+  buildLayerPanel();
   setInterval(loop, 16);
   fond(8);
   //etang();
@@ -63,10 +64,10 @@ function main(){
 
   window.setTimeout(function(){
     document.getElementById('loading').style.opacity = '0';
-  },3000);
+  },0000);
   window.setTimeout(function(){
     document.getElementById('loading').style.display = 'none';
-  },4000);
+  },1000);
 }
 
 function loop(){

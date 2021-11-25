@@ -26,7 +26,7 @@
         padding-left: 10px;
       }
       #panel:hover {min-width: 200px;}
-      #panel #assets {overflow-y: scroll;  height: 90vh;}
+    #panel #assets {overflow-y: scroll; /* height: 90vh; */}
       #assets img {
         display: block;
         margin-left: auto;
@@ -51,7 +51,8 @@
     </style>
 
     <!-- Import js -->
-    <script src="js/classes/image.js"></script>
+    <script src="js/sprite.js"></script>
+    <script src="js/folder.js"></script>
 
     <script src="assets.js"></script>
     <script src="js/main.js"></script>
@@ -69,14 +70,14 @@
     <img src="img/loading.png" id="loading">
     <div id="control">
       <span>tick <span id="fps"></span>ms</span><br>
-      <button onclick="mode='river';">River</button>
-      <button onclick="mode='cheminTerre';">Chemin terre</button>
-      <button onclick="mode='cheminPierre';">Chemin pierre</button>
-      <button onclick="mode='rock';">Rocks</button>
-      <button onclick="mode='foret';">Foret</button>
+      <button onclick="resetControl(); onClick = riverClick; onMove = riverMove;">River</button>
+      <button onclick="resetControl(); onClick = cheminTerreClick; onMove = cheminTerreMove;">Chemin terre</button>
+      <button onclick="resetControl(); onClick = cheminPierreClick; onMove = cheminPierreMove;">Chemin pierre</button>
+      <button onclick="resetControl(); onClick = rockClick; onMove = rockMove;">Rocks</button>
+      <button onclick="resetControl(); onClick = foretClick; onMove = foretMove;">Foret</button>
       <span>q:</span><input type=range min="100" max="500" step="10" id="quantity">
-      <button onclick="mode='custom';">Custom</button>
-      <button onclick="flushTemp()">None</button>
+      <button onclick="onClick = customClick; onMove = customMove;">Custom</button>
+      <button onclick="resetControl(); ">None</button>
       Grille: <input type="checkbox" id="quadrillage">
       Magnet: <input type="checkbox" id="magnet">
       (zqsd to move the camera, wxc pour rotate, scale and move an object)
@@ -89,6 +90,8 @@
         <button>Add Asset</button>
       </div>
       <div id="assets">
+      </div>
+      <div id="folders">
       </div>
     </div>
 
