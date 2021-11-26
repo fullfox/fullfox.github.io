@@ -77,9 +77,7 @@ class Folder {
 function buildLayerPanel(){
 
   document.getElementById('folders').innerHTML = "aa";
-  for (var variable of iterable) {
 
-  }
 
 }
 
