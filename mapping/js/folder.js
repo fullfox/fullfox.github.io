@@ -76,11 +76,26 @@ class Folder {
 
 function buildLayerPanel(){
 
-  document.getElementById('folders').innerHTML = "aa";
+  document.getElementById('folders').innerHTML = "";
 
 
 }
 
-function generateFolderHTML2(obj){
+function generateFolderHTML2(folder, htmlElement){
+  let folderHTML = document.createElement('div');
+  folderHTML.className = 'folder';
+  folderHTML.appendChild(document.createTextNode(folder.name));
+
+  for (var file of folder.getContent()) {
+    if(file.isFolder()){ //folder
+      generateFolderHTML2(file, folderHTML);
+    } else { //file
+      let fileHTML = document.createElement('div');
+      fileHTML.className = 'file';
+      fileHTML.appendChild(document.createTextNode(folder.name));
+      folderHTML.appendChild(fileHTML);
+    }
+    htmlElement.appendChild(folderHTML);
+  }
 
 }

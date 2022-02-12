@@ -47,8 +47,9 @@ function main(){
   buildLayerPanel();
   setInterval(loop, 16);
   fond(8);
-  //etang();
-  //river();
+  river();
+  foretClick();
+  cheminTerreClick();
 
   customs.push(new Sprite({
     'x':50,

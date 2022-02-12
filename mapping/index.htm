@@ -26,12 +26,20 @@
         padding-left: 10px;
       }
       #panel:hover {min-width: 200px;}
-    #panel #assets {overflow-y: scroll; /* height: 90vh; */}
+      #panel #assets, #panel #folders {overflow-y: scroll; height: 45vh;}
       #assets img {
         display: block;
         margin-left: auto;
         margin-right: auto;
       }
+
+      #folders div {
+        padding-left: 8px;
+      }
+
+      .folder>.folder, .folder>.file {display: none;}
+      .folder:hover>.folder {display: block;}
+      .folder:hover>.file {display: block;}
 
       .asset {cursor: pointer;}
       .asset:hover {background: #b2bec3;}
