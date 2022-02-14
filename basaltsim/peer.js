@@ -1,6 +1,7 @@
 class Peer {
   static peers = [];
   static i = 0;
+  static isMalicious = false;
 
   constructor() {
     Peer.peers.push(this);
@@ -87,7 +88,15 @@ class Peer {
     return this.view[r];
   }
 
+  //Metric
 
+  getMaliciousCountInView(){
+    let m = 0;
+    for (let peer of this.view) {
+      if(peer.isMalicious) m++;
+    }
+    return m;
+  }
 
   //Technique
   getEdges() {

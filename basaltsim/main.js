@@ -18,6 +18,7 @@ start();
 function start(){
 
   stop();
+  console.log("simulation started");
 
   //On initie le canvas
   Graph.init();
@@ -33,19 +34,34 @@ function start(){
   }
 
   //On les inits
+  console.log("init starting... this may take time");
   for (var i = 0; i < nodeNumber; i++) {
     Peer.peers[i].init();
+    if(i%100 == 0){
+      console.log("init " + (100*i/nodeNumber) + "%");
+    }
   }
+  console.log("init finished !");
 
   //On boucle
+  console.log("loop started");
   l = setInterval(loop, 1000/cyclesPerSecond);
 
+  graphEnabled = true;
   function loop(){
-    let t1 = (new Date).getMilliseconds();
+    let t1 = getMs();
+
     Peer.tickAll();
-    Graph.edges = Peer.peers[10].getEdges();
-    Graph.draw();
-    //console.log((new Date).getMilliseconds() - t1);
+    //Peer.peers[10].tick();
+    //Malicous.tickAllMalicious();
+
+
+    if(graphEnabled){
+      Graph.edges = Peer.peers[10].getEdges();
+      Graph.draw();
+    } else {
+      console.log(getMs() - t1);
+    }
   }
 }
 
@@ -55,7 +71,7 @@ function stop(){
   Malicous.maliciousPeers = [];
   infectedNode = [];
   Peer.i = 0;
-
+  console.log("simulation stopped");
 }
 
 function updateParam(){
@@ -63,7 +79,7 @@ function updateParam(){
   maliciousNumber = parseInt(document.getElementById('maliciousNumber').value);
   viewSize = parseInt(document.getElementById('viewSize').value);
   resetCooldown = parseInt(document.getElementById('resetCooldown').value);
-  cyclesPerSecond = parseInt(document.getElementById('cyclesPerSecond').value);
+  cyclesPerSecond = parseFloat(document.getElementById('cyclesPerSecond').value);
   resetNumber = parseInt(document.getElementById('resetNumber').value);
 }
 
@@ -74,4 +90,8 @@ function setParamHTML(){
   document.getElementById('resetCooldown').value = resetCooldown;
   document.getElementById('cyclesPerSecond').value = cyclesPerSecond;
   document.getElementById('resetNumber').value = resetNumber;
+}
+
+function getMs(){
+  return (new Date).getSeconds()*1e3 + (new Date).getMilliseconds();
 }

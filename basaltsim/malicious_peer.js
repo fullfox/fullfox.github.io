@@ -1,5 +1,6 @@
 class Malicous extends Peer {
   static maliciousPeers = [];
+  isMalicious = true;
 
   constructor() {
     super();
@@ -23,6 +24,12 @@ class Malicous extends Peer {
     let spam = 10;
     for (var i = 0; i < spam; i++) {
         this.push(this.selectPeer());
+    }
+  }
+
+  static tickAllMalicious(){
+    for (let peer of this.maliciousPeers) {
+      peer.tick();
     }
   }
 

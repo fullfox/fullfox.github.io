@@ -17,8 +17,8 @@ class Graph {
 
   static createNode(){
     let i = this.i;
-    let pasX = 80;
-    let pasY = 80;
+    let pasX = 40;
+    let pasY = 40;
     let maxX = window.innerWidth - 200;
     let x = pasX * (i%parseInt(maxX/pasX)) + Math.random()*pasX/2;
     let y = parseInt(i / parseInt(maxX/pasX) )*pasY +  Math.random()*pasY/2;
