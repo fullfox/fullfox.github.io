@@ -1,15 +1,15 @@
 //Param
-let nodeNumber = 80;
-let maliciousNumber = 20;
-let viewSize = 5;
+let nodeNumber = 100;
+let maliciousNumber = 10;
+let viewSize = 6;
 let resetCooldown = 10;
-let cyclesPerSecond = 5;
-let resetNumber = 1;
+let cyclesPerSecond = 10;
+let resetNumber = 2;
 
 let l;
 let infectedNode = []; //liste des id des malicieux pour les plot en violet
 
-
+setParamHTML();
 start();
 
 
@@ -65,4 +65,13 @@ function updateParam(){
   resetCooldown = parseInt(document.getElementById('resetCooldown').value);
   cyclesPerSecond = parseInt(document.getElementById('cyclesPerSecond').value);
   resetNumber = parseInt(document.getElementById('resetNumber').value);
+}
+
+function setParamHTML(){
+  document.getElementById('nodeNumber').value = nodeNumber;
+  document.getElementById('maliciousNumber').value = maliciousNumber;
+  document.getElementById('viewSize').value = viewSize;
+  document.getElementById('resetCooldown').value = resetCooldown;
+  document.getElementById('cyclesPerSecond').value = cyclesPerSecond;
+  document.getElementById('resetNumber').value = resetNumber;
 }
