@@ -1,12 +1,3 @@
-function orderedMap(){
-  let arr = [];
-  for (var type of mapOrder) {
-    arr.push(map[type]);
-  }
-  return arr;
-}
-
-
 function drawInterface(){
   ctx.setTransform(1, 0, 0, 1, 0, 0); //ctx de base
   ctx.font = "30px Arial";

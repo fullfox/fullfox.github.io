@@ -1,12 +1,17 @@
 class Sprite {
+  static iter = 0;
+
   constructor(obj) {
-    this.name = obj.name ?? "";
+    this.name = obj.name ?? "sprite";
     this.x = obj.x;
     this.y = obj.y;
     this.sx = obj.sx;
     this.sy = obj.sy;
     this.angle = obj.angle;;
     this.texture = obj.texture;
+
+    this.identifier = Sprite.iter++;
+    this.proxy = this; //compatibilité folder
   }
 
   isFolder(){return false;}

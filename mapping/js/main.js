@@ -2,7 +2,6 @@ let ctx;
 let canvas;
 let stack = [];
 let timeToDraw = 0;
-let mapOrder = ["grass","rivers","chemins","ponts","rocks","forests","custom","temp"];
 let map = new Folder("map");
 
 //Ordre:
@@ -69,6 +68,8 @@ function main(){
   window.setTimeout(function(){
     document.getElementById('loading').style.display = 'none';
   },1000);
+
+  generateFolderHTML2(map, document.getElementById("folders"));
 }
 
 function loop(){
