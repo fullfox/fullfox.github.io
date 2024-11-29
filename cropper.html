@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- GPT generated page -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Crop Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        #image-container {
+            position: relative;
+            margin: 20px;
+            border: 1px solid #ccc;
+            max-width: 80%; /* Default to wide mode */
+        }
+        canvas {
+            display: block;
+            width: 100%; /* Scale the canvas to fit within the container */
+            height: auto; /* Maintain aspect ratio */
+        }
+        #crop-rectangle {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.2);
+            width: 100%; /* Always full width */
+            cursor: move;
+        }
+
+        #crop-rectangle:hover {
+            background: rgba(255, 0, 0, 0.5);
+        }
+
+        #crop-rectangle .resize-handle {
+            position: absolute;
+            height: 10px;
+            width: 100%;
+            cursor: ns-resize;
+        }
+        #crop-rectangle .top-handle {
+            border-top: black solid 2px;
+            top: 0;
+        }
+        #crop-rectangle .bottom-handle {
+            border-bottom: black solid 2px;
+            bottom: 0;
+        }
+        .button-container {
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Vertical Crop Tool</h1>
+    <p>Paste an image or load one to crop.</p>
+    <label>
+        <input type="checkbox" id="contain-mode" checked>Fit Image to Browser (No Scrolling Required)
+    </label>
+    <input type="file" id="image-input" accept="image/*">
+    <div id="image-container">
+        <canvas id="image-canvas"></canvas>
+        <div id="crop-rectangle">
+            <div class="resize-handle top-handle"></div>
+            <div class="resize-handle bottom-handle"></div>
+        </div>
+    </div>
+    <div class="button-container">
+        <button id="crop-button">Crop</button>
+        <button id="save-button">Save</button>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const containModeCheckbox = document.getElementById('contain-mode');
+        const imageContainer = document.getElementById('image-container');
+        const canvas = document.getElementById('image-canvas');
+        const ctx = canvas.getContext('2d');
+        const cropRectangle = document.getElementById('crop-rectangle');
+        const topHandle = document.querySelector('.top-handle');
+        const bottomHandle = document.querySelector('.bottom-handle');
+        const cropButton = document.getElementById('crop-button');
+        const saveButton = document.getElementById('save-button');
+
+        let image = new Image();
+        let dragging = false;
+        let resizingTop = false;
+        let resizingBottom = false;
+        let startY = 0;
+        let rectTop = 0;
+        let rectHeight = 100;
+
+        // Load image from file input or paste event
+        function loadImage(src) {
+            image.src = src;
+            image.onload = () => {
+                canvas.width = image.width;
+                canvas.height = image.height;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                updateCanvasScale();
+                updateCropRectangle();
+            };
+        }
+
+        imageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => loadImage(e.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.addEventListener('paste', (event) => {
+            const items = event.clipboardData.items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.startsWith('image')) {
+                    const file = items[i].getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = (e) => loadImage(e.target.result);
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
+        // Update canvas scale based on containment mode
+        function updateCanvasScale() {
+            if (containModeCheckbox.checked) {
+                const scale = Math.min(
+                    0.6*window.innerHeight / canvas.height,
+                    0.8*window.innerWidth / canvas.width
+                );
+                canvas.style.width = `${canvas.width * scale}px`;
+                canvas.style.height = `${canvas.height * scale}px`;
+            } else {
+                canvas.style.width = '100%';
+                canvas.style.height = 'auto';
+            }
+            updateCropRectangle();
+        }
+
+        containModeCheckbox.addEventListener('change', updateCanvasScale);
+
+        // Update the crop rectangle's position and size
+        function updateCropRectangle() {
+            const canvasRect = canvas.getBoundingClientRect();
+            cropRectangle.style.top = `${rectTop * canvasRect.height / canvas.height}px`;
+            cropRectangle.style.height = `${rectHeight * canvasRect.height / canvas.height}px`;
+            cropRectangle.style.width = `${canvasRect.width}px`;
+        }
+
+        // Dragging and resizing the crop rectangle
+        cropRectangle.addEventListener('mousedown', (event) => {
+            const scrollOffset = window.scrollY;
+            if (event.target === topHandle) {
+                resizingTop = true;
+                startY = event.clientY + scrollOffset;
+            } else if (event.target === bottomHandle) {
+                resizingBottom = true;
+                startY = event.clientY + scrollOffset;
+            } else {
+                dragging = true;
+                startY = event.clientY + scrollOffset;
+            }
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            const canvasRect = canvas.getBoundingClientRect();
+            const scale = canvas.height / canvasRect.height;
+            const currentY = event.clientY + window.scrollY;
+
+            if (dragging) {
+                const delta = (currentY - startY) * scale;
+                rectTop = Math.max(0, Math.min(rectTop + delta, canvas.height - rectHeight));
+                startY = currentY;
+                updateCropRectangle();
+            } else if (resizingTop) {
+                const delta = (currentY - startY) * scale;
+                const newHeight = rectHeight - delta;
+                const newTop = rectTop + delta;
+                if (newTop < 0) {
+                    rectHeight += rectTop;
+                    rectTop = 0;
+                } else {
+                    rectTop = Math.min(newTop, canvas.height - newHeight);
+                    rectHeight = Math.max(10, Math.min(newHeight, canvas.height - rectTop));
+                }
+                startY = currentY;
+                updateCropRectangle();
+            } else if (resizingBottom) {
+                const delta = (currentY - startY) * scale;
+                const newHeight = rectHeight + delta;
+                if (newHeight < 10) rectTop = Math.max(0, Math.min(rectTop + delta, canvas.height - 10));
+                rectHeight = Math.max(10, Math.min(newHeight, canvas.height - rectTop));
+                startY = currentY;
+                updateCropRectangle();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            dragging = false;
+            resizingTop = false;
+            resizingBottom = false;
+        });
+
+        // Crop the image
+        cropButton.addEventListener('click', () => {
+            const cropBottom = rectTop + rectHeight;
+
+            const topImage = ctx.getImageData(0, 0, canvas.width, rectTop);
+            const bottomImage = ctx.getImageData(0, cropBottom, canvas.width, canvas.height - cropBottom);
+
+            const newCanvas = document.createElement('canvas');
+            newCanvas.width = canvas.width;
+            newCanvas.height = topImage.height + bottomImage.height;
+            const newCtx = newCanvas.getContext('2d');
+
+            newCtx.putImageData(topImage, 0, 0);
+            newCtx.putImageData(bottomImage, 0, topImage.height);
+
+            // Update the canvas dimensions and redraw the new image
+            canvas.width = newCanvas.width;
+            canvas.height = newCanvas.height;
+            ctx.drawImage(newCanvas, 0, 0);
+
+            // Automatically update scale if in "contained mode"
+            updateCanvasScale();
+
+            rectTop = 0;
+            rectHeight = canvas.height;
+            updateCropRectangle();
+        });
+
+        // Save the cropped image
+        saveButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'cropped-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
